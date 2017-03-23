@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>Login</title>
+		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+		    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+	</head>
+	<body>
+	    <br/>
+		<div class="ui middle aligned center aligned grid">
+			<div class="six wide olive column">
+			</div>
+			<div class="blue four wide column">
+				<h1 class="ui red image header">
+					<div class="content">
+						Crazy Diary
+					</div>
+				</h1>
+				<form class="ui large form" action="{{ url_for('authenitification.login') }}" method="POST">
+					<div class="ui orange inverted segment">
+						<div class="field">
+							<div class="ui left icon input">
+								<i class="user icon"></i>
+								<input type="text" name ="email" placeholder="E-mail address">
+							</div>
+						</div>
+						<div class ="field">
+							<div class="ui left icon input">
+								<i class="lock icon"></i>
+								<input type="password" name ="password" placeholder="Password">
+							</div>
+						</div>
+						<div class="ui fluid large submit animated button" >
+							<div class="visible content">Login</div>
+							<div class="hidden submit content">
+								<i class="right arrow icon"></i>
+							</div>
+						</div>
+					</div>
+					<div class="ui error message">{{error}}</div>
+				</form>
+			</div>
+			<div class="six wide column">
+			</div>
+		</div>
+	</body>
+
+
+
+</html>

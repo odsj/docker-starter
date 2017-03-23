@@ -1,0 +1,182 @@
+{% extends "layout/layout.html" %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
+{% endblock %}
+
+{% block content %}
+
+
+<button class="ui labeled icon second basic right floated button" id="writeButton">
+  <i class="plus icon"></i>
+  Write Today
+</button>
+
+<br/>
+
+<section id="cd-timeline" class="cd-container">
+    {% for item in journals %}
+    <div class="cd-timeline-block">
+        <div class="cd-timeline-img cd-picture">
+            <img src="{{ url_for('static', filename='img/cd-icon-picture.svg') }}" alt="Picture">
+        </div>
+        <!-- cd-timeline-img -->
+        
+        <div class="cd-timeline-content">
+            <h2>{{item.title}}</h2>
+            <p>
+                {{item.context}}
+            </p>
+            
+            <a href="#0" class="cd-read-more">
+                Read more
+            </a>
+            
+            <span class="cd-date">
+                Jan 14
+            </span>
+        </div>
+        
+        <!-- cd-timeline-content -->
+    </div><!-- cd-timeline-block -->
+
+    
+    {% endfor %}
+</section><!-- cd-timeline --> 
+
+                    <div class="ui long modal" id="modalEditor">
+                        <div class="header">Awesome Diary</div>
+
+                        <div class="content">
+                            <div class="ui labeled fluid input">
+                                <div class="ui label">
+                                    TITLE
+                                </div>
+                                <input type="text" id='diaryTitle' placeholder="This Diary's Title">
+                            </div>
+                            <br/>
+                            <div id="editor"></div>
+                            <div class="ui segments">
+                                <div class="ui segment">
+                                    <div class="ui top attached label">Tags</div>
+                                </div>
+                                <div class="ui segment">
+                                    <div class="ui action input">
+                                        <input id="tagText" type="text" placeholder="Input tags">
+                                        <div id="addTag" type="submit" class="ui button">Add</div>
+                                    </div>
+                                </div>
+                                <div id="tagArea" class="ui segment"></div>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <div class="ui red cancel inverted button" id="writeCancel">
+                                <i class="remove icon"></i> No
+                            </div>
+                            <div class="ui green ok inverted button" id="writeSave">
+                                <i class="checkmark icon"></i> Yes
+                            </div>
+                        </div>
+                    </div>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.6.1/ckeditor.js"></script>
+<script src="{{ url_for('static', filename='js/init_ckeditor.js') }}"></script>
+<script src="{{ url_for('static', filename='js/modernizr.js') }}"></script><script> // Simple : Object
+// Common API : Modualr
+var index=index || (function() {
+    var _version="1.0.0.0";
+    var _name="Index Page Script";
+
+    var _showModal = function() {
+        editorInit();
+        $('#modalEditor')
+            .modal({
+                closable: false,
+                offset: 400,
+                onDeny: function() {},
+                onApprove: function() {}
+            }).modal('show');
+    };
+    
+    var _writeCancel = function() {
+        editorDestory();
+    };
+    
+    var _writeSave = function() {
+        var data = '';
+        var diaryTitle;
+        var diaryContext;
+        var diaryTags;
+        var ajaxData = '';
+        console.log("Content Save");
+        diaryTitle = $('#diaryTitle').val();
+        diaryContext = getEditorData();
+        diaryTags = $('#tagText').val();
+        ajaxData = {
+            "diaryTitle": diaryTitle,
+            "diaryContext": diaryContext,
+            "diaryTags": diaryTags,
+            "date": '2017/02/20'
+        };
+        console.log(diaryTitle, diaryContext, tagText);
+
+        _sendDiaryToAjax(ajaxData);
+
+        editorDestory();
+    };
+    
+    var _sendDiaryToAjax = function(ajaxData) {
+        $.ajax({
+                method: "POST",
+                url: "/rest/journal",
+                contentType: 'application/json',
+                data: JSON.stringify(ajaxData),
+                error: function(request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+
+            })
+            .done(function(msg) {
+                alert("Data Saved");
+            });
+    };
+    
+    return {
+        "version"  : _version, 
+        "name"     : _name,
+        "eventBind" : function() {
+            $( "#writeButton" ).click(function() {
+              _showModal();
+            });
+            $("#writeCancel").bind({
+                click: function() {
+                    _writeCancel();
+                }
+            });
+            $("#writeSave").bind({
+                click: function() {
+                    _writeSave();
+                }
+            });
+
+        },
+        "init"     : function() {
+                        this.eventBind();
+                        console.log(this);
+                     }
+    }
+}
+
+)();
+$(document).ready(function() {
+    index.init();
+}
+
+);
+</script> 
+{% endblock %}

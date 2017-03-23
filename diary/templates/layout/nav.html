@@ -1,0 +1,43 @@
+<div class="ui fixed inverted stackable menu">
+  <div class="ui container">
+    <div class="header item">Diary</div>
+    <a href="/" class="item">Public</a>
+    <a href="/home" class="item">My Diary</a>
+    <div class="ui simple dropdown item">Dropdown <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item" href="#">Link Item</a>
+        <a class="item" href="#">Link Item</a>
+        <div class="divider"></div>
+        <div class="header">Header Item</div>
+        <div class="item">
+          <i class="dropdown icon"></i> Sub Menu
+          <div class="menu">
+            <a class="item" href="#">Link Item</a>
+            <a class="item" href="#">Link Item</a>
+          </div>
+        </div>
+        <a class="item" href="#">Link Item</a>
+      </div>
+    </div>
+    <div class="right menu">
+    <div class="item">
+      <div class="ui transparent inverted icon input">
+        <i class="search icon"></i>
+        <input type="text" placeholder="Search">
+      </div>
+    </div>
+    <a href="" class="item">
+      {% if user.is_anonymous != True %}   
+        {{ user.full_name }}
+      {% else %}
+        GUEST
+      {%endif %}
+    </a>
+      {% if user.is_anonymous != True %}
+          <a class="item active" href="/logout">Logout</a>
+      {% else %}
+          <a class="item active" href="/login">Login</a>
+      {% endif %}
+  </div>
+  </div>
+</div>
