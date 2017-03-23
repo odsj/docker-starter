@@ -2,8 +2,8 @@ import os
 
 from flask.helpers import get_debug_flag
 
-from diary import create_app
-from diary.settings import DevConfig, ProdConfig
+from dockerStarter import create_app
+from dockerStarter.settings import DevConfig, ProdConfig
 
 #CONFIG = DevConfig if get_debug_flag() else ProdConfig
 CONFIG = DevConfig
@@ -14,7 +14,7 @@ CONFIG = DevConfig
 
 import sys
 
-from diary import create_app
+from dockerStarter import create_app
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
