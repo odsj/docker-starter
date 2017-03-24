@@ -36,12 +36,12 @@ class DevConfig(Config):
     DB_PATH = os.path.join(Config.PROJECT_ROOT, DB_NAME)
     SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}'.format(DB_PATH)
     DB_URL='sqlite:///'
-    DB_FILE_PATH='resource/database/diary'
+    DB_FILE_PATH='resource/database/dockerStarter'
     DEBUG_TB_ENABLED = True
     ASSETS_DEBUG = True  # Don't bundle/minify static assets
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
     LOG_LEVEL = 'debug'
-    LOG_FILE_PATH = 'resource/log/diary.log'
+    LOG_FILE_PATH = 'resource/log/dockerStarter.log'
     DB_LOG_FLAG = 'True'
 
 

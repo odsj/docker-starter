@@ -1,0 +1,81 @@
+{% extends "layout/layout.html" %}
+
+{% block css %}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.semanticui.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="ui container main">
+
+
+
+<table id="example" class="ui celled table" cellspacing="0" width="100%">
+
+        <thead>
+            <tr>
+                <th>Repository</th>
+                <th>Tag</th>
+                <th>Image Id</th>
+                <th>Created</th>
+                <th>Size</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Repository</th>
+                <th>Tag</th>
+                <th>Image Id</th>
+                <th>Created</th>
+                <th>Size</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for item in images %}
+            <tr>
+                <td>{{item.dockerRepository}}</td>
+                <td>{{item.dockerTag}}</td>
+                <td>{{item.dockerImageId}}</td>
+                <td>{{item.dockerCreated}}</td>
+                <td>{{item.dockerSize}}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
+
+<script> // Simple : Object
+// Common API : Modualr
+var index=index || (function() {
+    var _version="1.0.0.0";
+    var _name="Index Page Script";
+
+    return {
+        "version"  : _version, 
+        "name"     : _name,
+        "init"     : function() {
+                        console.log(this);
+                        $('#example').DataTable();
+                     }
+    }
+}
+
+)();
+
+$(document).ready(function() {
+    index.init();
+}
+
+);
+</script> 
+{% endblock %}

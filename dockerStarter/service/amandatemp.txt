@@ -1,0 +1,4 @@
+20170323 132613 server /etc SUCCESS sec 0.358 kb 31830 kps 88862.2 orig-kb 31830
+20170323 132613 server /usr FAIL dump larger than available tape space, 3357680 KB, but cannot incremental dump new disk
+20170323 132917 server /etc SUCCESS sec 0.260 kb 31830 kps 122022.7 orig-kb 31830
+20170323 132917 server /usr SUCCESS sec 97.412 kb 3357680 kps 34468.6 orig-kb 3357680
